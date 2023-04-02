@@ -1,6 +1,6 @@
 # Training Center
-[![Quality Gate Status]()]()
-[![Coverage]()]()
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=smalaca_training-center&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=smalaca_training-center)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=smalaca_training-center&metric=coverage)](https://sonarcloud.io/summary/new_code?id=smalaca_training-center)
 
 ## Directories
 ### [.github](./.github)
