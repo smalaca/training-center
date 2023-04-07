@@ -14,7 +14,7 @@ public class TrainingApplicationService {
         this.offerRepository = offerRepository;
     }
 
-    public UUID chooseTraining() {
+    public UUID chooseTraining(ChooseTrainingCommand chooseTrainingCommand) {
         return offerRepository.save(new Offer());
     }
 }

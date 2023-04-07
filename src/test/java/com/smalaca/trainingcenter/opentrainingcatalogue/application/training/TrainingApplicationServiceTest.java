@@ -20,7 +20,7 @@ class TrainingApplicationServiceTest {
         UUID expected = UUID.randomUUID();
         given(offerRepository.save(any(Offer.class))).willReturn(expected);
 
-        UUID actual = service.chooseTraining();
+        UUID actual = service.chooseTraining(new ChooseTrainingCommand());
 
         assertThat(actual).isEqualTo(expected);
     }
