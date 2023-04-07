@@ -1,4 +1,4 @@
-package com.smalaca.libraries.annotation.ddd;
+package com.smalaca.libraries.annotation.domaindrivendesign;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
