@@ -1,4 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
-record ChooseTrainingCommand() {
+import java.util.UUID;
+
+record ChooseTrainingCommand(UUID trainingId) {
 }
