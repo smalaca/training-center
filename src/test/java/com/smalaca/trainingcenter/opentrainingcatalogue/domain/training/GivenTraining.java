@@ -12,7 +12,7 @@ public class GivenTraining {
     private final TrainingRepository trainingRepository;
 
     private TrainingId trainingId;
-    private TrainingProgrammeCode trainingProgrammeCode = new TrainingProgrammeCode(faker.lorem().word());
+    private TrainingProgrammeCode trainingProgrammeCode = TrainingProgrammeCode.of(faker.lorem().word());
 
     private GivenTraining(TrainingRepository trainingRepository) {
         this.trainingRepository = trainingRepository;
@@ -23,7 +23,7 @@ public class GivenTraining {
     }
 
     public GivenTraining withTrainingProgrammeCode(String trainingProgrammeCode) {
-        this.trainingProgrammeCode = new TrainingProgrammeCode(trainingProgrammeCode);
+        this.trainingProgrammeCode = TrainingProgrammeCode.of(trainingProgrammeCode);
         return this;
     }
 

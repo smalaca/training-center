@@ -49,7 +49,7 @@ class TrainingApplicationServiceTest {
         assertThat(thenOfferCreated())
                 .hasParticipantId(command.participantId())
                 .hasTrainingId(command.trainingId())
-                .hasTrainingProgrammeCode(new TrainingProgrammeCode("DDD"));
+                .hasTrainingProgrammeCode(TrainingProgrammeCode.of("DDD"));
     }
 
     private Offer thenOfferCreated() {

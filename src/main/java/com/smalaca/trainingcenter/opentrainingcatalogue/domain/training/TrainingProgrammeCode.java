@@ -8,7 +8,11 @@ import lombok.EqualsAndHashCode;
 public class TrainingProgrammeCode {
     private final String code;
 
-    public TrainingProgrammeCode(String code) {
+    private TrainingProgrammeCode(String code) {
         this.code = code;
+    }
+
+    public static TrainingProgrammeCode of(String code) {
+        return new TrainingProgrammeCode(code);
     }
 }
