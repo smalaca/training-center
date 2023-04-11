@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @ValueObject
 @EqualsAndHashCode
-public class TrainingProgrammeCode {
+public final class TrainingProgrammeCode {
     private final String code;
 
     private TrainingProgrammeCode(String code) {
