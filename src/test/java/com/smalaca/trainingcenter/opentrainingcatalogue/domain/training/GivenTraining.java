@@ -14,12 +14,8 @@ public class GivenTraining {
     private TrainingId trainingId;
     private TrainingProgrammeCode trainingProgrammeCode = TrainingProgrammeCode.of(faker.lorem().word());
 
-    private GivenTraining(TrainingRepository trainingRepository) {
+    GivenTraining(TrainingRepository trainingRepository) {
         this.trainingRepository = trainingRepository;
-    }
-
-    public static GivenTraining givenTraining(TrainingRepository trainingRepository) {
-        return new GivenTraining(trainingRepository);
     }
 
     public GivenTraining withTrainingProgrammeCode(String trainingProgrammeCode) {

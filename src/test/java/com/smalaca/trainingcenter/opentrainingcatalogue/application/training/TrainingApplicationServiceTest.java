@@ -2,9 +2,10 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTraining;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
@@ -22,10 +23,17 @@ class TrainingApplicationServiceTest {
     private final OfferRepository offerRepository = mock(OfferRepository.class);
     private final TrainingApplicationService service = new TrainingApplicationService(trainingRepository, offerRepository);
 
+    private GivenTrainingFactory given;
+
+    @BeforeEach
+    void initGivenTrainingFactory() {
+        given = new GivenTrainingFactory(trainingRepository);
+    }
+
     @Test
     void shouldReturnOfferId() {
         ChooseTrainingCommand command = command();
-        GivenTraining.givenTraining(trainingRepository)
+        given.training(trainingRepository)
                 .withTrainingId(command.trainingId())
                 .existing();
         UUID expected = UUID.randomUUID();
@@ -39,7 +47,7 @@ class TrainingApplicationServiceTest {
     @Test
     void shouldCreateOfferForTraining() {
         ChooseTrainingCommand command = command();
-        GivenTraining.givenTraining(trainingRepository)
+        given.training(trainingRepository)
                 .withTrainingProgrammeCode("DDD")
                 .withTrainingId(command.trainingId())
                 .existing();
