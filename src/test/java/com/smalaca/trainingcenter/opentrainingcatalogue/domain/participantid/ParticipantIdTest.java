@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId;
+package com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId;
+package com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid;
 
 import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;

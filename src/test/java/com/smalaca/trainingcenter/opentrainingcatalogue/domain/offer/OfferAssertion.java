@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import org.assertj.core.api.Assertions;

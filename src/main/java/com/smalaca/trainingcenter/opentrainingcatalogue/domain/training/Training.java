@@ -3,7 +3,7 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryPort;
 import com.smalaca.libraries.annotation.domaindrivendesign.AggregateRoot;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @AggregateRoot
