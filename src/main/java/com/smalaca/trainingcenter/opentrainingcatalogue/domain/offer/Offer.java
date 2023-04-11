@@ -11,9 +11,9 @@ import java.util.UUID;
 @AggregateRoot
 @SuppressFBWarnings("URF_UNREAD_FIELD")
 public class Offer {
-    private final ParticipantId participantId;
-    private final UUID trainingId;
-    private final TrainingProgrammeCode trainingProgrammeCode;
+    private ParticipantId participantId;
+    private UUID trainingId;
+    private TrainingProgrammeCode trainingProgrammeCode;
 
     private Offer(OfferBuilder builder) {
         this.participantId = builder.participantId;

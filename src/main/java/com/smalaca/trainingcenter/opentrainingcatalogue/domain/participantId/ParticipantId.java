@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @ValueObject
 @EqualsAndHashCode
-public class ParticipantId {
+public final class ParticipantId {
     private final UUID value;
 
     private ParticipantId(UUID value) {
