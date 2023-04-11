@@ -46,6 +46,7 @@ class TrainingApplicationServiceTest {
         service.chooseTraining(command);
 
         OfferAssertion.assertThat(thenOfferCreated())
+                .hasParticipantId(command.participantId())
                 .hasTrainingId(command.trainingId())
                 .hasTrainingProgrammeCode(code);
     }
@@ -63,6 +64,6 @@ class TrainingApplicationServiceTest {
     }
 
     private ChooseTrainingCommand command() {
-        return new ChooseTrainingCommand(UUID.randomUUID());
+        return new ChooseTrainingCommand(UUID.randomUUID(), UUID.randomUUID());
     }
 }
