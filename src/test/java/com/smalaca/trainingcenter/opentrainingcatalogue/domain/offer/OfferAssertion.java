@@ -1,6 +1,7 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import org.assertj.core.api.Assertions;
 
@@ -23,7 +24,7 @@ public class OfferAssertion {
     }
 
     public OfferAssertion hasTrainingId(UUID expected) {
-        Assertions.assertThat(actual).extracting("trainingId").isEqualTo(expected);
+        Assertions.assertThat(actual).extracting("trainingId").isEqualTo(TrainingId.of(expected));
         return this;
     }
 
