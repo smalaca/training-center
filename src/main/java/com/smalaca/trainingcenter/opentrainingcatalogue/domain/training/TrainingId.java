@@ -4,17 +4,19 @@ import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import lombok.EqualsAndHashCode;
 
+import java.util.UUID;
+
 @ValueObject
 @EqualsAndHashCode
-public final class TrainingProgrammeCode {
-    private final String code;
+public final class TrainingId {
+    private final UUID value;
 
-    private TrainingProgrammeCode(String code) {
-        this.code = code;
+    private TrainingId(UUID value) {
+        this.value = value;
     }
 
     @DomainFactory
-    public static TrainingProgrammeCode of(String code) {
-        return new TrainingProgrammeCode(code);
+    public static TrainingId of(UUID trainingId) {
+        return new TrainingId(trainingId);
     }
 }
