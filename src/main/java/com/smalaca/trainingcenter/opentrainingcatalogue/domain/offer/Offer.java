@@ -9,7 +9,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @AggregateRoot
 @SuppressFBWarnings("URF_UNREAD_FIELD")
-public class Offer {
+public final class Offer {
     private ParticipantId participantId;
     private TrainingId trainingId;
     private TrainingProgrammeCode trainingProgrammeCode;
