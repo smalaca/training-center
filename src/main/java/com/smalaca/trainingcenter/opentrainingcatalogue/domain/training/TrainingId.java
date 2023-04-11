@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
+import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +15,7 @@ public final class TrainingId {
         this.value = value;
     }
 
+    @DomainFactory
     public static TrainingId of(UUID trainingId) {
         return new TrainingId(trainingId);
     }
