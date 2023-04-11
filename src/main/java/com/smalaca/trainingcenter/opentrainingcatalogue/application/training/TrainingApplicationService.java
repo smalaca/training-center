@@ -1,6 +1,7 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryAdapter;
+import com.smalaca.libraries.annotation.cqrs.Command;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training;
@@ -18,6 +19,7 @@ public class TrainingApplicationService {
         this.offerRepository = offerRepository;
     }
 
+    @Command
     public UUID chooseTraining(ChooseTrainingCommand command) {
         Training training = trainingRepository.findBy(command.trainingId());
 
