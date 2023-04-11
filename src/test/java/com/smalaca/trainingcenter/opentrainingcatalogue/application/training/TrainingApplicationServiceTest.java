@@ -4,6 +4,7 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferAssertion;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingTestFactory;
@@ -52,7 +53,7 @@ class TrainingApplicationServiceTest {
     }
 
     private void givenTraining(ChooseTrainingCommand command, TrainingProgrammeCode code) {
-        UUID trainingId = command.trainingId();
+        TrainingId trainingId = TrainingId.of(command.trainingId());
         Training training = trainingTestFactory.create(trainingId, code);
         given(trainingRepository.findBy(trainingId)).willReturn(training);
     }

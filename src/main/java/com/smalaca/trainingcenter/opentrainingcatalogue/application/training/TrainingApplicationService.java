@@ -6,6 +6,7 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 
 import java.util.UUID;
@@ -22,7 +23,8 @@ public class TrainingApplicationService {
 
     @Command
     public UUID chooseTraining(ChooseTrainingCommand command) {
-        Training training = trainingRepository.findBy(command.trainingId());
+        TrainingId trainingId = TrainingId.of(command.trainingId());
+        Training training = trainingRepository.findBy(trainingId);
         ParticipantId participantId = ParticipantId.of(command.participantId());
 
         Offer offer = training.choose(participantId);
