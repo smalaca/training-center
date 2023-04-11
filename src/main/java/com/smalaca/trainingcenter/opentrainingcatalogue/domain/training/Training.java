@@ -10,7 +10,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class Training {
     @SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
     private TrainingId trainingId;
-    private final TrainingProgrammeCode trainingProgrammeCode;
+    private TrainingProgrammeCode trainingProgrammeCode;
 
     Training(TrainingProgrammeCode trainingProgrammeCode) {
         this.trainingProgrammeCode = trainingProgrammeCode;
