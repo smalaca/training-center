@@ -4,6 +4,7 @@ import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryAdap
 import com.smalaca.libraries.annotation.cqrs.Command;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 
@@ -22,8 +23,9 @@ public class TrainingApplicationService {
     @Command
     public UUID chooseTraining(ChooseTrainingCommand command) {
         Training training = trainingRepository.findBy(command.trainingId());
+        ParticipantId participantId = ParticipantId.of(command.participantId());
 
-        Offer offer = training.choose();
+        Offer offer = training.choose(participantId);
 
         return offerRepository.save(offer);
     }
