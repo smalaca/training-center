@@ -12,7 +12,7 @@ public class TrainingTestFactory {
         try {
             Field trainingIdField = training.getClass().getDeclaredField("trainingId");
             trainingIdField.setAccessible(true);
-            trainingIdField.set(training, trainingId);
+            trainingIdField.set(training, TrainingId.of(trainingId));
 
             return training;
         } catch (NoSuchFieldException | IllegalAccessException exception) {

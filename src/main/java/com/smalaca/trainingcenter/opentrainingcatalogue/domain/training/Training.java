@@ -6,12 +6,10 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.util.UUID;
-
 @AggregateRoot
 public class Training {
     @SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
-    private UUID trainingId;
+    private TrainingId trainingId;
     private final TrainingProgrammeCode trainingProgrammeCode;
 
     Training(TrainingProgrammeCode trainingProgrammeCode) {

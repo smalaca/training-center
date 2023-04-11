@@ -3,16 +3,15 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 import com.smalaca.libraries.annotation.domaindrivendesign.AggregateRoot;
 import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantId.ParticipantId;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import java.util.UUID;
 
 @AggregateRoot
 @SuppressFBWarnings("URF_UNREAD_FIELD")
 public class Offer {
     private ParticipantId participantId;
-    private UUID trainingId;
+    private TrainingId trainingId;
     private TrainingProgrammeCode trainingProgrammeCode;
 
     private Offer(OfferBuilder builder) {
@@ -28,7 +27,7 @@ public class Offer {
     @DomainFactory
     public static class OfferBuilder {
         private ParticipantId participantId;
-        private UUID trainingId;
+        private TrainingId trainingId;
         private TrainingProgrammeCode trainingProgrammeCode;
 
         public Offer build() {
@@ -40,7 +39,7 @@ public class Offer {
             return this;
         }
 
-        public OfferBuilder with(UUID trainingId) {
+        public OfferBuilder with(TrainingId trainingId) {
             this.trainingId = trainingId;
             return this;
         }
