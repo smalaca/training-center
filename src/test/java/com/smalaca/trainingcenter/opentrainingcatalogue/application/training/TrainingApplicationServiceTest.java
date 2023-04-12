@@ -32,22 +32,28 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldReturnOfferId() {
+        UUID expectedOfferId = givenOfferId();
         ChooseTrainingCommand command = command();
-        given.training(trainingRepository)
+        given.training()
                 .withTrainingId(command.trainingId())
                 .existing();
-        UUID expected = UUID.randomUUID();
-        given(offerRepository.save(any(Offer.class))).willReturn(expected);
 
         UUID actual = service.chooseTraining(command);
 
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(expectedOfferId);
+    }
+
+    private UUID givenOfferId() {
+        UUID expected = UUID.randomUUID();
+        given(offerRepository.save(any(Offer.class))).willReturn(expected);
+
+        return expected;
     }
 
     @Test
     void shouldCreateOfferForTraining() {
         ChooseTrainingCommand command = command();
-        given.training(trainingRepository)
+        given.training()
                 .withTrainingProgrammeCode("DDD")
                 .withTrainingId(command.trainingId())
                 .existing();

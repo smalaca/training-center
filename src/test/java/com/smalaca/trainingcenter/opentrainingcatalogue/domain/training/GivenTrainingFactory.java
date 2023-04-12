@@ -10,7 +10,7 @@ public class GivenTrainingFactory {
         this.trainingRepository = trainingRepository;
     }
 
-    public GivenTraining training(TrainingRepository trainingRepository) {
+    public GivenTraining training() {
         return GivenTraining.create(trainingRepository, FAKER);
     }
 }
