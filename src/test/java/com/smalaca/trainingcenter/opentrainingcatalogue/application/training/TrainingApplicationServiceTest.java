@@ -2,6 +2,7 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferAssertion.assertThat;
@@ -19,6 +21,10 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 class TrainingApplicationServiceTest {
+    private static final UUID PARTICIPANT_ID = UUID.randomUUID();
+    private static final UUID TRAINING_ID = UUID.randomUUID();
+    private static final UUID OFFER_ID = UUID.randomUUID();
+
     private final TrainingRepository trainingRepository = mock(TrainingRepository.class);
     private final OfferRepository offerRepository = mock(OfferRepository.class);
     private final TrainingApplicationService service = new TrainingApplicationService(trainingRepository, offerRepository);
@@ -26,37 +32,44 @@ class TrainingApplicationServiceTest {
     private GivenTrainingFactory given;
 
     @BeforeEach
-    void initGivenTrainingFactory() {
+    void init() {
+        initGivenTrainingFactory();
+        givenOfferId();
+    }
+
+    private void initGivenTrainingFactory() {
         given = new GivenTrainingFactory(trainingRepository);
+    }
+
+    private void givenOfferId() {
+        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_ID);
     }
 
     @Test
     void shouldReturnOfferId() {
-        ChooseTrainingCommand command = command();
-        given.training(trainingRepository)
-                .withTrainingId(command.trainingId())
+        given.training()
+                .withTrainingId(TRAINING_ID)
                 .existing();
-        UUID expected = UUID.randomUUID();
-        given(offerRepository.save(any(Offer.class))).willReturn(expected);
 
-        UUID actual = service.chooseTraining(command);
+        UUID actual = service.chooseTraining(command());
 
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(OFFER_ID);
     }
 
     @Test
     void shouldCreateOfferForTraining() {
-        ChooseTrainingCommand command = command();
-        given.training(trainingRepository)
+        given.training()
+                .withTrainingId(TRAINING_ID)
                 .withTrainingProgrammeCode("DDD")
-                .withTrainingId(command.trainingId())
+                .withPrice(BigDecimal.valueOf(123.45))
                 .existing();
 
-        service.chooseTraining(command);
+        service.chooseTraining(command());
 
         assertThat(thenOfferCreated())
-                .hasParticipantId(command.participantId())
-                .hasTrainingId(command.trainingId())
+                .hasParticipantId(PARTICIPANT_ID)
+                .hasTrainingId(TRAINING_ID)
+                .hasPrice(Price.of(BigDecimal.valueOf(123.45)))
                 .hasTrainingProgrammeCode(TrainingProgrammeCode.of("DDD"));
     }
 
@@ -67,6 +80,6 @@ class TrainingApplicationServiceTest {
     }
 
     private ChooseTrainingCommand command() {
-        return new ChooseTrainingCommand(UUID.randomUUID(), UUID.randomUUID());
+        return new ChooseTrainingCommand(PARTICIPANT_ID, TRAINING_ID);
     }
 }
