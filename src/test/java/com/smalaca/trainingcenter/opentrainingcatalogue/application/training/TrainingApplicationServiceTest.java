@@ -19,6 +19,10 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 class TrainingApplicationServiceTest {
+    private static final UUID PARTICIPANT_ID = UUID.randomUUID();
+    private static final UUID TRAINING_ID = UUID.randomUUID();
+    private static final UUID OFFER_ID = UUID.randomUUID();
+
     private final TrainingRepository trainingRepository = mock(TrainingRepository.class);
     private final OfferRepository offerRepository = mock(OfferRepository.class);
     private final TrainingApplicationService service = new TrainingApplicationService(trainingRepository, offerRepository);
@@ -26,43 +30,42 @@ class TrainingApplicationServiceTest {
     private GivenTrainingFactory given;
 
     @BeforeEach
-    void initGivenTrainingFactory() {
+    void init() {
+        initGivenTrainingFactory();
+        givenOfferId();
+    }
+
+    private void initGivenTrainingFactory() {
         given = new GivenTrainingFactory(trainingRepository);
+    }
+
+    private void givenOfferId() {
+        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_ID);
     }
 
     @Test
     void shouldReturnOfferId() {
-        UUID expectedOfferId = givenOfferId();
-        ChooseTrainingCommand command = command();
         given.training()
-                .withTrainingId(command.trainingId())
+                .withTrainingId(TRAINING_ID)
                 .existing();
 
-        UUID actual = service.chooseTraining(command);
+        UUID actual = service.chooseTraining(command());
 
-        assertThat(actual).isEqualTo(expectedOfferId);
-    }
-
-    private UUID givenOfferId() {
-        UUID expected = UUID.randomUUID();
-        given(offerRepository.save(any(Offer.class))).willReturn(expected);
-
-        return expected;
+        assertThat(actual).isEqualTo(OFFER_ID);
     }
 
     @Test
     void shouldCreateOfferForTraining() {
-        ChooseTrainingCommand command = command();
         given.training()
                 .withTrainingProgrammeCode("DDD")
-                .withTrainingId(command.trainingId())
+                .withTrainingId(TRAINING_ID)
                 .existing();
 
-        service.chooseTraining(command);
+        service.chooseTraining(command());
 
         assertThat(thenOfferCreated())
-                .hasParticipantId(command.participantId())
-                .hasTrainingId(command.trainingId())
+                .hasParticipantId(PARTICIPANT_ID)
+                .hasTrainingId(TRAINING_ID)
                 .hasTrainingProgrammeCode(TrainingProgrammeCode.of("DDD"));
     }
 
@@ -73,6 +76,6 @@ class TrainingApplicationServiceTest {
     }
 
     private ChooseTrainingCommand command() {
-        return new ChooseTrainingCommand(UUID.randomUUID(), UUID.randomUUID());
+        return new ChooseTrainingCommand(PARTICIPANT_ID, TRAINING_ID);
     }
 }
