@@ -2,6 +2,7 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferAssertion.assertThat;
@@ -57,8 +59,9 @@ class TrainingApplicationServiceTest {
     @Test
     void shouldCreateOfferForTraining() {
         given.training()
-                .withTrainingProgrammeCode("DDD")
                 .withTrainingId(TRAINING_ID)
+                .withTrainingProgrammeCode("DDD")
+                .withPrice(BigDecimal.valueOf(123.45))
                 .existing();
 
         service.chooseTraining(command());
@@ -66,6 +69,7 @@ class TrainingApplicationServiceTest {
         assertThat(thenOfferCreated())
                 .hasParticipantId(PARTICIPANT_ID)
                 .hasTrainingId(TRAINING_ID)
+                .hasPrice(Price.of(BigDecimal.valueOf(123.45)))
                 .hasTrainingProgrammeCode(TrainingProgrammeCode.of("DDD"));
     }
 

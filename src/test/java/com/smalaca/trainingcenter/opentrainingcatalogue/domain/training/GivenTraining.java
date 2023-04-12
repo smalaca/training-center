@@ -1,8 +1,10 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import net.datafaker.Faker;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
@@ -12,6 +14,7 @@ public class GivenTraining {
 
     private TrainingId trainingId;
     private TrainingProgrammeCode trainingProgrammeCode;
+    private Price price;
 
     private GivenTraining(TrainingRepository trainingRepository) {
         this.trainingRepository = trainingRepository;
@@ -34,13 +37,19 @@ public class GivenTraining {
         return this;
     }
 
+    public GivenTraining withPrice(BigDecimal price) {
+        this.price = Price.of(price);
+        return this;
+    }
+
     public void existing() {
         Training training = training();
         given(trainingRepository.findBy(trainingId)).willReturn(training);
     }
 
     private Training training() {
-        return withTrainingId(new Training(trainingProgrammeCode));
+        Training training = new Training(trainingProgrammeCode, price);
+        return withTrainingId(training);
     }
 
     private Training withTrainingId(Training training)  {
