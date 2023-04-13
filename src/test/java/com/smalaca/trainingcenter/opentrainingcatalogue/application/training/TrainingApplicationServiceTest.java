@@ -2,9 +2,11 @@ package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,9 +24,11 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 class TrainingApplicationServiceTest {
-    private static final UUID PARTICIPANT_ID = UUID.randomUUID();
-    private static final UUID TRAINING_ID = UUID.randomUUID();
-    private static final UUID OFFER_ID = UUID.randomUUID();
+    private static final UUID PARTICIPANT_UUID = UUID.randomUUID();
+    private static final ParticipantId PARTICIPANT_ID = ParticipantId.of(PARTICIPANT_UUID);
+    private static final UUID TRAINING_UUID = UUID.randomUUID();
+    private static final TrainingId TRAINING_ID = TrainingId.of(TRAINING_UUID);
+    private static final UUID OFFER_UUID = UUID.randomUUID();
     private static final String NO_DISCOUNT_CODE = null;
 
     private final DiscountService discountService = mock(DiscountService.class);
@@ -46,7 +50,7 @@ class TrainingApplicationServiceTest {
     }
 
     private void givenOfferId() {
-        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_ID);
+        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_UUID);
     }
 
     @Test
@@ -57,14 +61,14 @@ class TrainingApplicationServiceTest {
 
         UUID actual = service.chooseTraining(command());
 
-        assertThat(actual).isEqualTo(OFFER_ID);
+        assertThat(actual).isEqualTo(OFFER_UUID);
     }
 
     @Test
     void shouldCreateOfferForTraining() {
         given.training()
                 .withTrainingId(TRAINING_ID)
-                .withPrice(BigDecimal.valueOf(123.45))
+                .withPrice(priceOf(123.45))
                 .existing();
 
         service.chooseTraining(command());
@@ -72,38 +76,39 @@ class TrainingApplicationServiceTest {
         assertThat(thenOfferCreated())
                 .hasParticipantId(PARTICIPANT_ID)
                 .hasTrainingId(TRAINING_ID)
-                .hasPrice(Price.of(BigDecimal.valueOf(123.45)));
+                .hasPrice(priceOf(123.45));
     }
 
     @Test
     void shouldHaveTheSamePriceAsTrainingWhenNoDiscountCodeSent() {
         given.training()
                 .withTrainingId(TRAINING_ID)
-                .withPrice(BigDecimal.valueOf(67.89))
+                .withPrice(priceOf(67.89))
                 .existing();
 
         service.chooseTraining(command());
 
         assertThat(thenOfferCreated())
-                .hasPrice(Price.of(BigDecimal.valueOf(67.89)));
+                .hasPrice(priceOf(67.89));
     }
 
     @Test
     void shouldCreateOfferWithDiscount() {
         String discountCode = faker.lorem().word();
-        Price regular = Price.of(BigDecimal.valueOf(34.89));
-        Price withDiscount = Price.of(BigDecimal.valueOf(20.00));
-        given(discountService.totalPriceFor(regular, discountCode)).willReturn(withDiscount);
+        given(discountService.totalPriceFor(priceOf(34.89), discountCode)).willReturn(priceOf(20.00));
         given.training()
                 .withTrainingId(TRAINING_ID)
-                .withPrice(BigDecimal.valueOf(34.89))
+                .withPrice(priceOf(34.89))
                 .existing();
-        ChooseTrainingCommand command = new ChooseTrainingCommand(TRAINING_ID, PARTICIPANT_ID, discountCode);
 
-        service.chooseTraining(command);
+        service.chooseTraining(new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, discountCode));
 
         assertThat(thenOfferCreated())
-                .hasPrice(withDiscount);
+                .hasPrice(priceOf(20.00));
+    }
+
+    private Price priceOf(double value) {
+        return Price.of(BigDecimal.valueOf(value));
     }
 
     private Offer thenOfferCreated() {
@@ -113,6 +118,6 @@ class TrainingApplicationServiceTest {
     }
 
     private ChooseTrainingCommand command() {
-        return new ChooseTrainingCommand(TRAINING_ID, PARTICIPANT_ID, NO_DISCOUNT_CODE);
+        return new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, NO_DISCOUNT_CODE);
     }
 }

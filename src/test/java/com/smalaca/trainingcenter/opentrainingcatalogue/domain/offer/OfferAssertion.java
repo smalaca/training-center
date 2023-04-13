@@ -5,8 +5,6 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import org.assertj.core.api.Assertions;
 
-import java.util.UUID;
-
 public class OfferAssertion {
     private final Offer actual;
 
@@ -18,13 +16,13 @@ public class OfferAssertion {
         return new OfferAssertion(actual);
     }
 
-    public OfferAssertion hasParticipantId(UUID expected) {
-        Assertions.assertThat(actual).extracting("participantId").isEqualTo(ParticipantId.of(expected));
+    public OfferAssertion hasParticipantId(ParticipantId expected) {
+        Assertions.assertThat(actual).extracting("participantId").isEqualTo(expected);
         return this;
     }
 
-    public OfferAssertion hasTrainingId(UUID expected) {
-        Assertions.assertThat(actual).extracting("trainingId").isEqualTo(TrainingId.of(expected));
+    public OfferAssertion hasTrainingId(TrainingId expected) {
+        Assertions.assertThat(actual).extracting("trainingId").isEqualTo(expected);
         return this;
     }
 

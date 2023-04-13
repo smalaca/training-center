@@ -4,8 +4,6 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import net.datafaker.Faker;
 
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
 
@@ -21,13 +19,13 @@ public class GivenTraining {
         this.faker = faker;
     }
 
-    public GivenTraining withTrainingId(UUID trainingId) {
-        this.trainingId = TrainingId.of(trainingId);
+    public GivenTraining withTrainingId(TrainingId trainingId) {
+        this.trainingId = trainingId;
         return this;
     }
 
-    public GivenTraining withPrice(BigDecimal price) {
-        this.price = Price.of(price);
+    public GivenTraining withPrice(Price price) {
+        this.price = price;
         return this;
     }
 
