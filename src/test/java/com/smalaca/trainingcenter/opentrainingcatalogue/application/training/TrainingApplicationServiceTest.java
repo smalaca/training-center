@@ -115,11 +115,11 @@ class TrainingApplicationServiceTest {
         return captor.getValue();
     }
 
-    private ChooseTrainingCommand command() {
+    private ChooseTrainingApplicationCommand command() {
         return commandWithDiscountCode(NO_DISCOUNT_CODE);
     }
 
-    private ChooseTrainingCommand commandWithDiscountCode(String discountCode) {
-        return new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, discountCode);
+    private ChooseTrainingApplicationCommand commandWithDiscountCode(String discountCode) {
+        return new ChooseTrainingApplicationCommand(TRAINING_UUID, PARTICIPANT_UUID, discountCode);
     }
 }

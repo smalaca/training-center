@@ -22,6 +22,7 @@ public class Training {
 
     @PrimaryPort
     public Offer choose(ParticipantId participantId, String discountCode, DiscountService discountService) {
+
         return Offer.builder()
                 .with(trainingId)
                 .with(participantId)

@@ -26,7 +26,7 @@ public class TrainingApplicationService {
     }
 
     @Command
-    public UUID chooseTraining(ChooseTrainingCommand command) {
+    public UUID chooseTraining(ChooseTrainingApplicationCommand command) {
         TrainingId trainingId = TrainingId.of(command.trainingId());
         Training training = trainingRepository.findBy(trainingId);
         ParticipantId participantId = ParticipantId.of(command.participantId());
