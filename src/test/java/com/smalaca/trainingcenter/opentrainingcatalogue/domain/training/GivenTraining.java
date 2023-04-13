@@ -11,25 +11,14 @@ import static org.mockito.BDDMockito.given;
 
 public class GivenTraining {
     private final TrainingRepository trainingRepository;
+    private final Faker faker;
 
     private TrainingId trainingId;
-    private TrainingProgrammeCode trainingProgrammeCode;
     private Price price;
 
-    private GivenTraining(TrainingRepository trainingRepository) {
+    GivenTraining(TrainingRepository trainingRepository, Faker faker) {
         this.trainingRepository = trainingRepository;
-    }
-
-    static GivenTraining create(TrainingRepository trainingRepository, Faker faker) {
-        GivenTraining givenTraining = new GivenTraining(trainingRepository);
-        givenTraining.trainingProgrammeCode = TrainingProgrammeCode.of(faker.lorem().word());
-
-        return givenTraining;
-    }
-
-    public GivenTraining withTrainingProgrammeCode(String trainingProgrammeCode) {
-        this.trainingProgrammeCode = TrainingProgrammeCode.of(trainingProgrammeCode);
-        return this;
+        this.faker = faker;
     }
 
     public GivenTraining withTrainingId(UUID trainingId) {
@@ -48,7 +37,9 @@ public class GivenTraining {
     }
 
     private Training training() {
+        TrainingProgrammeCode trainingProgrammeCode = TrainingProgrammeCode.of(faker.lorem().word());
         Training training = new Training(trainingProgrammeCode, price);
+
         return withTrainingId(training);
     }
 

@@ -24,7 +24,6 @@ public class Training {
         return Offer.builder()
                 .with(trainingId)
                 .with(participantId)
-                .with(trainingProgrammeCode)
                 .with(price)
                 .build();
     }
