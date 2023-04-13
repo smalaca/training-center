@@ -73,7 +73,7 @@ class TrainingApplicationServiceTest {
 
         service.chooseTraining(command());
 
-        assertThat(thenOfferCreated())
+        assertThat(createdOffer())
                 .hasParticipantId(PARTICIPANT_ID)
                 .hasTrainingId(TRAINING_ID)
                 .hasPrice(priceOf(123.45));
@@ -86,10 +86,9 @@ class TrainingApplicationServiceTest {
                 .withPrice(priceOf(67.89))
                 .existing();
 
-        service.chooseTraining(command());
+        service.chooseTraining(commandWithDiscountCode(NO_DISCOUNT_CODE));
 
-        assertThat(thenOfferCreated())
-                .hasPrice(priceOf(67.89));
+        assertThat(createdOffer()).hasPrice(priceOf(67.89));
     }
 
     @Test
@@ -101,23 +100,26 @@ class TrainingApplicationServiceTest {
                 .withPrice(priceOf(34.89))
                 .existing();
 
-        service.chooseTraining(new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, discountCode));
+        service.chooseTraining(commandWithDiscountCode(discountCode));
 
-        assertThat(thenOfferCreated())
-                .hasPrice(priceOf(20.00));
+        assertThat(createdOffer()).hasPrice(priceOf(20.00));
     }
 
     private Price priceOf(double value) {
         return Price.of(BigDecimal.valueOf(value));
     }
 
-    private Offer thenOfferCreated() {
+    private Offer createdOffer() {
         ArgumentCaptor<Offer> captor = ArgumentCaptor.forClass(Offer.class);
         then(offerRepository).should().save(captor.capture());
         return captor.getValue();
     }
 
     private ChooseTrainingCommand command() {
-        return new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, NO_DISCOUNT_CODE);
+        return commandWithDiscountCode(NO_DISCOUNT_CODE);
+    }
+
+    private ChooseTrainingCommand commandWithDiscountCode(String discountCode) {
+        return new ChooseTrainingCommand(TRAINING_UUID, PARTICIPANT_UUID, discountCode);
     }
 }
