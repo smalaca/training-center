@@ -1,6 +1,7 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
@@ -29,6 +30,7 @@ class TrainingApplicationServiceTest {
     private static final UUID TRAINING_UUID = UUID.randomUUID();
     private static final TrainingId TRAINING_ID = TrainingId.of(TRAINING_UUID);
     private static final UUID OFFER_UUID = UUID.randomUUID();
+    private static final OfferId OFFER_ID = OfferId.of(OFFER_UUID);
     private static final String NO_DISCOUNT_CODE = null;
 
     private final DiscountService discountService = mock(DiscountService.class);
@@ -50,7 +52,7 @@ class TrainingApplicationServiceTest {
     }
 
     private void givenOfferId() {
-        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_UUID);
+        given(offerRepository.save(any(Offer.class))).willReturn(OFFER_ID);
     }
 
     @Test

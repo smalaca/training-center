@@ -34,7 +34,7 @@ public class TrainingApplicationService {
 
         Offer offer = training.choose(chooseTrainingCommand);
 
-        return offerRepository.save(offer);
+        return offerRepository.save(offer).id();
     }
 
     private ChooseTrainingCommand asCommand(ChooseTrainingApplicationCommand command) {
