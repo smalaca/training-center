@@ -21,11 +21,19 @@ public class Training {
     }
 
     @PrimaryPort
-    public Offer choose(ParticipantId participantId) {
+    public Offer choose(ParticipantId participantId, String discountCode, DiscountService discountService) {
         return Offer.builder()
                 .with(trainingId)
                 .with(participantId)
-                .with(price)
+                .with(getPrice(discountCode, discountService))
                 .build();
+    }
+
+    private Price getPrice(String discountCode, DiscountService discountService) {
+        if (discountCode != null) {
+            return discountService.totalPriceFor(price, discountCode);
+        }
+
+        return price;
     }
 }
