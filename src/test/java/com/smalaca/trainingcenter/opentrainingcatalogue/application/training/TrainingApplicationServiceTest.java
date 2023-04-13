@@ -4,7 +4,6 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,7 +59,6 @@ class TrainingApplicationServiceTest {
     void shouldCreateOfferForTraining() {
         given.training()
                 .withTrainingId(TRAINING_ID)
-                .withTrainingProgrammeCode("DDD")
                 .withPrice(BigDecimal.valueOf(123.45))
                 .existing();
 
@@ -69,8 +67,7 @@ class TrainingApplicationServiceTest {
         assertThat(thenOfferCreated())
                 .hasParticipantId(PARTICIPANT_ID)
                 .hasTrainingId(TRAINING_ID)
-                .hasPrice(Price.of(BigDecimal.valueOf(123.45)))
-                .hasTrainingProgrammeCode(TrainingProgrammeCode.of("DDD"));
+                .hasPrice(Price.of(BigDecimal.valueOf(123.45)));
     }
 
     private Offer thenOfferCreated() {

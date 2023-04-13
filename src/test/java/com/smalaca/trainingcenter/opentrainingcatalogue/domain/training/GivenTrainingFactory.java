@@ -11,6 +11,6 @@ public class GivenTrainingFactory {
     }
 
     public GivenTraining training() {
-        return GivenTraining.create(trainingRepository, FAKER);
+        return new GivenTraining(trainingRepository, FAKER);
     }
 }

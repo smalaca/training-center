@@ -5,7 +5,6 @@ import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingProgrammeCode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @AggregateRoot
@@ -13,13 +12,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class Offer {
     private TrainingId trainingId;
     private ParticipantId participantId;
-    private TrainingProgrammeCode trainingProgrammeCode;
     private Price price;
 
     private Offer(OfferBuilder builder) {
         this.trainingId = builder.trainingId;
         this.participantId = builder.participantId;
-        this.trainingProgrammeCode = builder.trainingProgrammeCode;
         this.price = builder.price;
     }
 
@@ -31,7 +28,6 @@ public final class Offer {
     public static class OfferBuilder {
         private ParticipantId participantId;
         private TrainingId trainingId;
-        private TrainingProgrammeCode trainingProgrammeCode;
         private Price price;
 
         public Offer build() {
@@ -45,11 +41,6 @@ public final class Offer {
 
         public OfferBuilder with(TrainingId trainingId) {
             this.trainingId = trainingId;
-            return this;
-        }
-
-        public OfferBuilder with(TrainingProgrammeCode trainingProgrammeCode) {
-            this.trainingProgrammeCode = trainingProgrammeCode;
             return this;
         }
 

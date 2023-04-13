@@ -11,6 +11,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class Training {
     @SuppressFBWarnings("UWF_UNWRITTEN_FIELD")
     private TrainingId trainingId;
+    @SuppressFBWarnings("URF_UNREAD_FIELD")
     private TrainingProgrammeCode trainingProgrammeCode;
     private Price price;
 
@@ -24,7 +25,6 @@ public class Training {
         return Offer.builder()
                 .with(trainingId)
                 .with(participantId)
-                .with(trainingProgrammeCode)
                 .with(price)
                 .build();
     }
