@@ -30,4 +30,16 @@ public class OfferAssertion {
         Assertions.assertThat(actual).extracting("price").isEqualTo(expected);
         return this;
     }
+
+    public OfferAssertion hasValidOfferNumberFor(String date, ParticipantId participantId) {
+        Assertions.assertThat(actual).extracting("offerNumber")
+                .isInstanceOf(OfferNumber.class)
+                .satisfies(offerNumber -> {
+                    OfferNumber actual = ((OfferNumber) offerNumber);
+                    Assertions.assertThat(actual.number())
+                            .matches("OFFER-" + date + "-" + participantId.id() + "-[0-9]{9}");
+                });
+
+        return this;
+    }
 }

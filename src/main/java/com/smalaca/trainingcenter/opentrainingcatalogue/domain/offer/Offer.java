@@ -13,11 +13,13 @@ public final class Offer {
     private TrainingId trainingId;
     private ParticipantId participantId;
     private Price price;
+    private OfferNumber offerNumber;
 
     private Offer(OfferBuilder builder) {
         this.trainingId = builder.trainingId;
         this.participantId = builder.participantId;
         this.price = builder.price;
+        this.offerNumber = builder.offerNumber;
     }
 
     public static Offer.OfferBuilder builder() {
@@ -29,6 +31,7 @@ public final class Offer {
         private ParticipantId participantId;
         private TrainingId trainingId;
         private Price price;
+        private OfferNumber offerNumber;
 
         public Offer build() {
             return new Offer(this);
@@ -46,6 +49,11 @@ public final class Offer {
 
         public OfferBuilder with(Price price) {
             this.price = price;
+            return this;
+        }
+
+        OfferBuilder with(OfferNumber offerNumber) {
+            this.offerNumber = offerNumber;
             return this;
         }
     }
