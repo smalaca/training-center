@@ -19,4 +19,8 @@ public final class ParticipantId {
     public static ParticipantId of(UUID participantId) {
         return new ParticipantId(participantId);
     }
+
+    public UUID id() {
+        return value;
+    }
 }

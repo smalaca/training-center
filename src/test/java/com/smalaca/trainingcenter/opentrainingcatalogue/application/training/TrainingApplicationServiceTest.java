@@ -1,11 +1,12 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Clock;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.DiscountService;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferAssertion.assertThat;
@@ -34,9 +36,10 @@ class TrainingApplicationServiceTest {
     private static final String NO_DISCOUNT_CODE = null;
 
     private final DiscountService discountService = mock(DiscountService.class);
+    private final Clock clock = mock(Clock.class);
     private final TrainingRepository trainingRepository = mock(TrainingRepository.class);
     private final OfferRepository offerRepository = mock(OfferRepository.class);
-    private final TrainingApplicationService service = new TrainingApplicationService(trainingRepository, offerRepository, discountService);
+    private final TrainingApplicationService service = TrainingApplicationService.create(trainingRepository, offerRepository, discountService, clock);
 
     private final Faker faker = new Faker();
     private GivenTrainingFactory given;
@@ -45,6 +48,11 @@ class TrainingApplicationServiceTest {
     void init() {
         initGivenTrainingFactory();
         givenOfferId();
+        givenNowDate();
+    }
+
+    private void givenNowDate() {
+        given(clock.nowDate()).willReturn(LocalDate.of(2021, 5, 13));
     }
 
     private void initGivenTrainingFactory() {
@@ -78,7 +86,8 @@ class TrainingApplicationServiceTest {
         assertThat(createdOffer())
                 .hasParticipantId(PARTICIPANT_ID)
                 .hasTrainingId(TRAINING_ID)
-                .hasPrice(priceOf(123.45));
+                .hasPrice(priceOf(123.45))
+                .hasValidOfferNumberFor("20210513", PARTICIPANT_ID);
     }
 
     @Test
