@@ -10,18 +10,14 @@ import static org.mockito.BDDMockito.given;
 public class GivenTraining {
     private final TrainingRepository trainingRepository;
     private final Faker faker;
+    private final TrainingId trainingId;
 
-    private TrainingId trainingId;
     private Price price;
 
-    GivenTraining(TrainingRepository trainingRepository, Faker faker) {
+    GivenTraining(TrainingRepository trainingRepository, TrainingId trainingId, Faker faker) {
         this.trainingRepository = trainingRepository;
-        this.faker = faker;
-    }
-
-    public GivenTraining withTrainingId(TrainingId trainingId) {
         this.trainingId = trainingId;
-        return this;
+        this.faker = faker;
     }
 
     public GivenTraining withPrice(Price price) {

@@ -1,12 +1,12 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Clock;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
@@ -65,9 +65,7 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldReturnOfferId() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
-                .existing();
+        given.training(TRAINING_ID).existing();
 
         UUID actual = service.chooseTraining(command());
 
@@ -76,8 +74,7 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldCreateOfferForTraining() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(123.45))
                 .existing();
 
@@ -92,8 +89,7 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldHaveTheSamePriceAsTrainingWhenNoDiscountCodeSent() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(67.89))
                 .existing();
 
@@ -106,8 +102,7 @@ class TrainingApplicationServiceTest {
     void shouldCreateOfferWithDiscount() {
         String discountCode = faker.lorem().word();
         given(discountService.totalPriceFor(priceOf(34.89), discountCode)).willReturn(priceOf(20.00));
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(34.89))
                 .existing();
 
