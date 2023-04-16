@@ -19,11 +19,16 @@ public class TrainingApplicationService {
     private final OfferRepository offerRepository;
     private final DiscountService discountService;
 
-    public TrainingApplicationService(
+    private TrainingApplicationService(
             TrainingRepository trainingRepository, OfferRepository offerRepository, DiscountService discountService) {
         this.trainingRepository = trainingRepository;
         this.offerRepository = offerRepository;
         this.discountService = discountService;
+    }
+
+    static TrainingApplicationService create(
+            TrainingRepository trainingRepository, OfferRepository offerRepository, DiscountService discountService) {
+        return new TrainingApplicationService(trainingRepository, offerRepository, discountService);
     }
 
     @Command

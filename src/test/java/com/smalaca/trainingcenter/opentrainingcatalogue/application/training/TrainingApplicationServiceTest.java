@@ -36,7 +36,7 @@ class TrainingApplicationServiceTest {
     private final DiscountService discountService = mock(DiscountService.class);
     private final TrainingRepository trainingRepository = mock(TrainingRepository.class);
     private final OfferRepository offerRepository = mock(OfferRepository.class);
-    private final TrainingApplicationService service = new TrainingApplicationService(trainingRepository, offerRepository, discountService);
+    private final TrainingApplicationService service = TrainingApplicationService.create(trainingRepository, offerRepository, discountService);
 
     private final Faker faker = new Faker();
     private GivenTrainingFactory given;
