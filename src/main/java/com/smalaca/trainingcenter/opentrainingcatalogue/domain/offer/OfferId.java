@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
-import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
+import com.smalaca.libraries.annotation.domaindrivendesign.Factory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ public final class OfferId {
         this.value = value;
     }
 
-    @DomainFactory
+    @Factory
     public static OfferId of(UUID offerId) {
         return new OfferId(offerId);
     }
