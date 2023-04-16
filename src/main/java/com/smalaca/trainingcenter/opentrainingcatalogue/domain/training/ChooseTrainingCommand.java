@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 

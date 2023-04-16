@@ -1,4 +1,4 @@
-package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
+package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 

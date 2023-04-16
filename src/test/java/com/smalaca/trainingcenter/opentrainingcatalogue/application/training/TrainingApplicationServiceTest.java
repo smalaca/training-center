@@ -5,7 +5,7 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.DiscountService;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
