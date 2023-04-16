@@ -8,7 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @DomainFactory
-final class OfferFactory {
+public final class OfferFactory {
     private final DiscountService discountService;
     private final OfferNumberFactory offerNumberFactory;
 
@@ -17,11 +17,11 @@ final class OfferFactory {
         this.offerNumberFactory = offerNumberFactory;
     }
 
-    static OfferFactory create(DiscountService discountService, Clock clock) {
+    public static OfferFactory create(DiscountService discountService, Clock clock) {
         return new OfferFactory(discountService, new OfferNumberFactory(clock));
     }
 
-    Offer create(CreateOfferCommand command) {
+    public Offer create(CreateOfferCommand command) {
         OfferData offerData = new OfferData();
         offerData.participantId = command.participantId();
         offerData.trainingId = command.trainingId();
