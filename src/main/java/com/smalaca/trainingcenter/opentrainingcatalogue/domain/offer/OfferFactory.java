@@ -40,7 +40,7 @@ public final class OfferFactory {
     }
 
     @Getter(AccessLevel.PACKAGE)
-    class OfferData {
+    final class OfferData {
         private ParticipantId participantId;
         private TrainingId trainingId;
         private Price price;
