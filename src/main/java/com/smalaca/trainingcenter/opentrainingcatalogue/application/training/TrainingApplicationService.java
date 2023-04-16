@@ -16,7 +16,7 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training
 import java.util.UUID;
 
 @PrimaryAdapter
-public class TrainingApplicationService {
+public final class TrainingApplicationService {
     private final TrainingRepository trainingRepository;
     private final OfferRepository offerRepository;
     private final OfferFactory offerFactory;
