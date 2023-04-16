@@ -21,14 +21,22 @@ final class OfferFactory {
         return new OfferFactory(discountService, new OfferNumberFactory(clock));
     }
 
-    Offer create(CreateOffer command) {
+    Offer create(CreateOfferCommand command) {
         OfferData offerData = new OfferData();
         offerData.participantId = command.participantId();
         offerData.trainingId = command.trainingId();
-        offerData.price = discountService.totalPriceFor(command.price(), command.discountCode());
+        offerData.price = priceFor(command.price(), command.discountCode());
         offerData.offerNumber = offerNumberFactory.createFor(command.participantId());
 
         return new Offer(offerData);
+    }
+
+    private Price priceFor(Price price, String discountCode) {
+        if (discountCode != null) {
+            return discountService.totalPriceFor(price, discountCode);
+        }
+
+        return price;
     }
 
     @Getter(AccessLevel.PACKAGE)

@@ -4,4 +4,4 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.Par
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 
-record CreateOffer(TrainingId trainingId, ParticipantId participantId, Price price, String discountCode) { }
+public record CreateOfferCommand(TrainingId trainingId, ParticipantId participantId, Price price, String discountCode) { }
