@@ -1,18 +1,20 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Clock;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferRepository;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
-import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.GivenTrainingFactory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingLimitExceeded;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingRepository;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.ArgumentCaptor;
 
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ import java.util.UUID;
 
 import static com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.OfferAssertion.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
@@ -64,10 +67,23 @@ class TrainingApplicationServiceTest {
     }
 
     @Test
-    void shouldReturnOfferId() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
+    void shouldRecognizeParticipantsLimitReached() {
+        given.training(TRAINING_ID)
+                .withParticipantsLimit(3)
+                .withParticipant(ParticipantId.of(UUID.randomUUID()))
+                .withParticipant(ParticipantId.of(UUID.randomUUID()))
+                .withParticipant(ParticipantId.of(UUID.randomUUID()))
                 .existing();
+        Executable executable = () -> service.chooseTraining(command());
+
+        TrainingLimitExceeded actual = assertThrows(TrainingLimitExceeded.class, executable);
+
+        assertThat(actual).hasMessage("Participants limit exceed for training: " + TRAINING_UUID);
+    }
+
+    @Test
+    void shouldReturnOfferId() {
+        given.training(TRAINING_ID).existing();
 
         UUID actual = service.chooseTraining(command());
 
@@ -76,8 +92,7 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldCreateOfferForTraining() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(123.45))
                 .existing();
 
@@ -92,8 +107,7 @@ class TrainingApplicationServiceTest {
 
     @Test
     void shouldHaveTheSamePriceAsTrainingWhenNoDiscountCodeSent() {
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(67.89))
                 .existing();
 
@@ -106,8 +120,7 @@ class TrainingApplicationServiceTest {
     void shouldCreateOfferWithDiscount() {
         String discountCode = faker.lorem().word();
         given(discountService.totalPriceFor(priceOf(34.89), discountCode)).willReturn(priceOf(20.00));
-        given.training()
-                .withTrainingId(TRAINING_ID)
+        given.training(TRAINING_ID)
                 .withPrice(priceOf(34.89))
                 .existing();
 

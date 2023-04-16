@@ -1,9 +1,12 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import net.datafaker.Faker;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 
@@ -11,21 +14,29 @@ public class GivenTraining {
     private final TrainingRepository trainingRepository;
     private final Faker faker;
 
-    private TrainingId trainingId;
+    private final TrainingId trainingId;
+    private final List<ParticipantId> participants = new ArrayList<>();
     private Price price;
+    private int participantsLimit = 13;
 
-    GivenTraining(TrainingRepository trainingRepository, Faker faker) {
+    GivenTraining(TrainingRepository trainingRepository, TrainingId trainingId, Faker faker) {
         this.trainingRepository = trainingRepository;
-        this.faker = faker;
-    }
-
-    public GivenTraining withTrainingId(TrainingId trainingId) {
         this.trainingId = trainingId;
-        return this;
+        this.faker = faker;
     }
 
     public GivenTraining withPrice(Price price) {
         this.price = price;
+        return this;
+    }
+
+    public GivenTraining withParticipantsLimit(int participantsLimit) {
+        this.participantsLimit = participantsLimit;
+        return this;
+    }
+
+    public GivenTraining withParticipant(ParticipantId participantId) {
+        participants.add(participantId);
         return this;
     }
 
@@ -36,7 +47,7 @@ public class GivenTraining {
 
     private Training training() {
         TrainingProgrammeCode trainingProgrammeCode = TrainingProgrammeCode.of(faker.lorem().word());
-        Training training = new Training(trainingProgrammeCode, price);
+        Training training = new Training(trainingProgrammeCode, price, participantsLimit, participants);
 
         return withTrainingId(training);
     }

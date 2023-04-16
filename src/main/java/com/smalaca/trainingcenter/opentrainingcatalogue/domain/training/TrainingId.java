@@ -19,4 +19,8 @@ public final class TrainingId {
     public static TrainingId of(UUID trainingId) {
         return new TrainingId(trainingId);
     }
+
+    UUID id() {
+        return value;
+    }
 }

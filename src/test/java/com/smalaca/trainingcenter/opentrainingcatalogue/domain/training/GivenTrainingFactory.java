@@ -10,7 +10,7 @@ public class GivenTrainingFactory {
         this.trainingRepository = trainingRepository;
     }
 
-    public GivenTraining training() {
-        return new GivenTraining(trainingRepository, FAKER);
+    public GivenTraining training(TrainingId trainingId) {
+        return new GivenTraining(trainingRepository, trainingId, FAKER);
     }
 }
