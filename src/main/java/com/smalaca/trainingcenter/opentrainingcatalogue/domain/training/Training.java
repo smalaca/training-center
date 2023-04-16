@@ -1,6 +1,5 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
-import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryPort;
 import com.smalaca.libraries.annotation.domaindrivendesign.AggregateRoot;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.CreateOfferCommand;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Offer;
@@ -21,7 +20,6 @@ public class Training {
         this.price = price;
     }
 
-    @PrimaryPort
     public Offer choose(ChooseTrainingCommand command) {
         CreateOfferCommand createOffer =  command.asCreateOfferCommand(trainingId, price);
         OfferFactory offerFactory = command.offerFactory();

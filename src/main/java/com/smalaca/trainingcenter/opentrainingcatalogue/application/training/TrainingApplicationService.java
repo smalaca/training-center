@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.application.training;
 
-import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryAdapter;
+import com.smalaca.libraries.annotation.architecture.portandadapters.PrimaryPort;
 import com.smalaca.libraries.annotation.cqrs.Command;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.Clock;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer.DiscountService;
@@ -15,7 +15,7 @@ import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.Training
 
 import java.util.UUID;
 
-@PrimaryAdapter
+@PrimaryPort
 public final class TrainingApplicationService {
     private final TrainingRepository trainingRepository;
     private final OfferRepository offerRepository;
