@@ -1,13 +1,13 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
-import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
+import com.smalaca.libraries.annotation.domaindrivendesign.Factory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.price.Price;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.training.TrainingId;
 import lombok.AccessLevel;
 import lombok.Getter;
 
-@DomainFactory
+@Factory
 public final class OfferFactory {
     private final DiscountService discountService;
     private final OfferNumberFactory offerNumberFactory;

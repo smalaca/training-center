@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.training;
 
-import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
+import com.smalaca.libraries.annotation.domaindrivendesign.Factory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ public final class TrainingProgrammeCode {
         this.code = code;
     }
 
-    @DomainFactory
+    @Factory
     public static TrainingProgrammeCode of(String code) {
         return new TrainingProgrammeCode(code);
     }

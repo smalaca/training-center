@@ -1,12 +1,12 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
-import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
+import com.smalaca.libraries.annotation.domaindrivendesign.Factory;
 import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.format.DateTimeFormatter;
 
-@DomainFactory
+@Factory
 class OfferNumberFactory {
     private static final String PREFIX = "OFFER";
     private static final int LENGTH = 9;

@@ -1,6 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.price;
 
-import com.smalaca.libraries.annotation.domaindrivendesign.DomainFactory;
+import com.smalaca.libraries.annotation.domaindrivendesign.Factory;
 import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -15,7 +15,7 @@ public final class Price {
         this.value = value;
     }
 
-    @DomainFactory
+    @Factory
     public static Price of(BigDecimal value) {
         return new Price(value);
     }
