@@ -1,5 +1,6 @@
 package com.smalaca.trainingcenter.opentrainingcatalogue.domain.offer;
 
+import com.smalaca.trainingcenter.opentrainingcatalogue.domain.participantid.ParticipantId;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -22,13 +23,13 @@ class OfferNumberTest {
     Stream<DynamicTest> shouldCreateOfferNumberWhenDayAndMonthAreTwoDigitNumbers() {
         return IntStream.range(0, 10).mapToObj(index -> {
             LocalDate date = givenNowFor(twoDigitDay(), twoDigitMonth());
-            CustomerId customerId = customerId();
+            ParticipantId participantId = participantId();
 
-            return dynamicTest(testName(date, customerId), () -> {
-                OfferNumber actual = factory.createFor(customerId);
+            return dynamicTest(testName(date, participantId), () -> {
+                OfferNumber actual = factory.createFor(participantId);
 
                 assertThat(actual.number())
-                        .matches("OFFER-" + date.getYear() + date.getMonthValue() + date.getDayOfMonth() + "-" + customerId.id() + "-[0-9]{9}");
+                        .matches("OFFER-" + date.getYear() + date.getMonthValue() + date.getDayOfMonth() + "-" + participantId.id() + "-[0-9]{9}");
             });
         });
     }
@@ -37,13 +38,13 @@ class OfferNumberTest {
     Stream<DynamicTest> shouldCreateOfferNumberWhenMonthIsOneDigitNumber() {
         return IntStream.range(0, 10).mapToObj(index -> {
             LocalDate date = givenNowFor(twoDigitDay(), oneDigit());
-            CustomerId customerId = customerId();
+            ParticipantId participantId = participantId();
 
-            return dynamicTest(testName(date, customerId), () -> {
-                OfferNumber actual = factory.createFor(customerId);
+            return dynamicTest(testName(date, participantId), () -> {
+                OfferNumber actual = factory.createFor(participantId);
 
                 assertThat(actual.number())
-                        .matches("OFFER-" + date.getYear() + "0" + date.getMonthValue() + date.getDayOfMonth() + "-" + customerId.id() + "-[0-9]{9}");
+                        .matches("OFFER-" + date.getYear() + "0" + date.getMonthValue() + date.getDayOfMonth() + "-" + participantId.id() + "-[0-9]{9}");
             });
         });
     }
@@ -52,13 +53,13 @@ class OfferNumberTest {
     Stream<DynamicTest> shouldCreateOfferNumberWhenDayIsOneDigitNumber() {
         return IntStream.range(0, 10).mapToObj(index -> {
             LocalDate date = givenNowFor(oneDigit(), twoDigitMonth());
-            CustomerId customerId = customerId();
+            ParticipantId participantId = participantId();
 
-            return dynamicTest(testName(date, customerId), () -> {
-                OfferNumber actual = factory.createFor(customerId);
+            return dynamicTest(testName(date, participantId), () -> {
+                OfferNumber actual = factory.createFor(participantId);
 
                 assertThat(actual.number())
-                        .matches("OFFER-" + date.getYear() + date.getMonthValue() + "0" + date.getDayOfMonth() + "-" + customerId.id() + "-[0-9]{9}");
+                        .matches("OFFER-" + date.getYear() + date.getMonthValue() + "0" + date.getDayOfMonth() + "-" + participantId.id() + "-[0-9]{9}");
             });
         });
     }
@@ -67,19 +68,19 @@ class OfferNumberTest {
     Stream<DynamicTest> shouldCreateOfferNumberWhenMonthAndDayAreOneDigitNumbers() {
         return IntStream.range(0, 10).mapToObj(index -> {
             LocalDate date = givenNowFor(oneDigit(), oneDigit());
-            CustomerId customerId = customerId();
+            ParticipantId participantId = participantId();
 
-            return dynamicTest(testName(date, customerId), () -> {
-                OfferNumber actual = factory.createFor(customerId);
+            return dynamicTest(testName(date, participantId), () -> {
+                OfferNumber actual = factory.createFor(participantId);
 
                 assertThat(actual.number())
-                        .matches("OFFER-" + date.getYear() + "0" + date.getMonthValue() + "0" + date.getDayOfMonth() + "-" + customerId.id() + "-[0-9]{9}");
+                        .matches("OFFER-" + date.getYear() + "0" + date.getMonthValue() + "0" + date.getDayOfMonth() + "-" + participantId.id() + "-[0-9]{9}");
             });
         });
     }
 
-    private CustomerId customerId() {
-        return CustomerId.of(UUID.randomUUID());
+    private ParticipantId participantId() {
+        return ParticipantId.of(UUID.randomUUID());
     }
 
     private LocalDate givenNowFor(int day, int month) {
@@ -102,7 +103,7 @@ class OfferNumberTest {
         return RandomUtils.nextInt(10, 12);
     }
 
-    private String testName(LocalDate date, CustomerId customerId) {
-        return "For date: " + date + " and customer id: " + customerId.id();
+    private String testName(LocalDate date, ParticipantId participantId) {
+        return "For date: " + date + " and customer id: " + participantId.id();
     }
 }
