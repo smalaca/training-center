@@ -5,7 +5,7 @@ import com.smalaca.libraries.annotation.domaindrivendesign.ValueObject;
 import java.util.UUID;
 
 @ValueObject
-class CustomerId {
+final class CustomerId {
     private final UUID value;
 
     private CustomerId(UUID value) {
