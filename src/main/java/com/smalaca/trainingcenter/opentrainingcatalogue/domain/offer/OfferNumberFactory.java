@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 class OfferNumberFactory {
     private static final String PREFIX = "OFFER";
     private static final int LENGTH = 9;
+    private static final DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyyMMdd");
+
     private final Clock clock;
 
     OfferNumberFactory(Clock clock) {
@@ -24,6 +26,6 @@ class OfferNumberFactory {
     }
 
     private String date() {
-        return clock.nowDate().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return clock.nowDate().format(YYYY_MM_DD);
     }
 }
