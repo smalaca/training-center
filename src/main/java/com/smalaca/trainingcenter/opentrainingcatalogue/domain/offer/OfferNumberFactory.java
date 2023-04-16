@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 @DomainFactory
 class OfferNumberFactory {
     private static final String PREFIX = "OFFER";
+    private static final int LENGTH = 9;
     private final Clock clock;
 
     OfferNumberFactory(Clock clock) {
@@ -15,7 +16,11 @@ class OfferNumberFactory {
     }
 
     OfferNumber createFor(CustomerId customerId) {
-        return new OfferNumber(PREFIX + "-" + date() + "-" + customerId.id() + "-" + RandomStringUtils.random(9, false, true));
+        return new OfferNumber(PREFIX + "-" + date() + "-" + customerId.id() + "-" + randomNumeric());
+    }
+
+    private String randomNumeric() {
+        return RandomStringUtils.random(LENGTH, false, true);
     }
 
     private String date() {
